@@ -1,19 +1,19 @@
-namespace OOP_War.Models;
+namespace WarOOP.Models;
 
 public class Warrior
 {
     public bool IsAlive => CurrentHealth > 0;
-    
-    public int StartHealth { get; protected init; }
+
+    public readonly int StartHealth;
 
     public int CurrentHealth { get; protected set; }
 
-    public int Attack { get; protected init; }
+    public int Attack { get; protected set; }
 
     public Warrior()
     {
-        StartHealth = CurrentHealth;
         CurrentHealth = 50;
+        StartHealth = CurrentHealth;
         Attack = 5;
     }
 
