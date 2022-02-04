@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using OOP_War.Models;
+using WarOOP.Models;
 using Xunit;
 
 namespace Tests;

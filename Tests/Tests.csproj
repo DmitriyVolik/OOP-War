@@ -21,7 +21,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\OOP-War\OOP-War.csproj" />
+      <ProjectReference Include="..\WarOOP\WarOOP.csproj" />
     </ItemGroup>
 
 </Project>
