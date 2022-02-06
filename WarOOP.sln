@@ -2,7 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarOOP", "WarOOP\WarOOP.csproj", "{B2BEF67C-3783-4D88-A45D-516386459DF3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{4A2DE2AF-38AF-4AF7-A9DC-BF2908F2138B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarOOP.Tests", "WarOOP.Tests\WarOOP.Tests.csproj", "{4A2DE2AF-38AF-4AF7-A9DC-BF2908F2138B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

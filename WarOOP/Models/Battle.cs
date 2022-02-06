@@ -1,0 +1,50 @@
+namespace WarOOP.Models;
+
+public static class Battle
+{
+    public static bool Fight(Warrior warrior1, Warrior warrior2)
+    {
+        while (true)
+        {
+            warrior1.AttackTo(warrior2);
+            if (!warrior1.IsAlive)
+            {
+                return false;
+            }
+
+            warrior2.AttackTo(warrior1);
+            if (!warrior2.IsAlive)
+            {
+                return true;
+            }
+        }
+    }
+
+    public static bool Fight(Army army1, Army army2)
+    {
+        if (army1 == null || army2 == null)
+        {
+            throw new NullReferenceException("Army can not be null");
+        }
+        
+        if (!army1.HasUnits || !army2.HasUnits)
+        {
+            throw new Exception("Army can not be empty");
+        }
+        
+        while (true)
+        {
+            army1.GetUnit().AttackTo(army2.GetUnit());
+            if (!army1.HasUnits)
+            {
+                return false;
+            }
+            
+            army2.GetUnit().AttackTo(army1.GetUnit());
+            if (!army2.HasUnits)
+            {
+                return true;
+            }
+        }
+    }
+}

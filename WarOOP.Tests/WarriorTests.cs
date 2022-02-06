@@ -18,7 +18,7 @@ public class WarriorTests
     [MemberData(nameof(TestData))]
     public void FirstWinSecond(Warrior warrior1, Warrior warrior2)
     {
-        var result = Game.Fight(warrior1, warrior2);
+        var result = Battle.Fight(warrior1, warrior2);
 
         Assert.True(result);
     }
@@ -30,28 +30,18 @@ public class WarriorTests
         var warrior2 = new Knight();
 
         warrior1.AttackTo(warrior2);
-        var result = Game.Fight(warrior1, warrior2);
+        var result = Battle.Fight(warrior1, warrior2);
 
         Assert.False(result);
     }
 
     [Theory]
     [MemberData(nameof(TestData))]
-    public void FirstAttackSecond(Warrior warrior1, Warrior warrior2)
+    public void WarriorAttackWarrior(Warrior warrior1, Warrior warrior2)
     {
         warrior1.AttackTo(warrior2);
 
         Assert.True(warrior2.CurrentHealth < warrior2.StartHealth);
     }
 
-    [Fact]
-    public void KnightGetDamage()
-    {
-        var knight = new Knight();
-        var warrior = new Warrior();
-
-        warrior.AttackTo(knight);
-
-        Assert.True(knight.CurrentHealth < knight.StartHealth);
-    }
 }
