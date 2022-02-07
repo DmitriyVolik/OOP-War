@@ -37,6 +37,9 @@ public class Army : IArmy
             case "Knight":
                 warrior = new Knight();
                 break;
+            case "Defender":
+                warrior = new Defender();
+                break;
             default:
                 throw new Exception("Type not found");
         }
