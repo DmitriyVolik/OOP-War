@@ -1,3 +1,5 @@
+using System.Diagnostics;
+
 namespace WarOOP.Models;
 
 public static class Battle
@@ -27,21 +29,31 @@ public static class Battle
             throw new NullReferenceException("Army can not be null");
         }
         
-        if (!army1.HasUnits || !army2.HasUnits)
+        if (!army1.HasUnits() && !army2.HasUnits())
         {
-            throw new Exception("Army can not be empty");
+            throw new Exception("Armies can not be empty");
+        }
+
+        if (!army1.HasUnits())
+        {
+            return false;
+        }
+        
+        if (!army2.HasUnits())
+        {
+            return true;
         }
         
         while (true)
         {
             army1.GetUnit().AttackTo(army2.GetUnit());
-            if (!army2.HasUnits)
+            if (!army2.HasUnits())
             {
                 return true;
             }
 
             army2.GetUnit().AttackTo(army1.GetUnit());
-            if (!army1.HasUnits)
+            if (!army1.HasUnits())
             {
                 return false;
             }

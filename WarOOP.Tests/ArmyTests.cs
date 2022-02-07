@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using WarOOP.Models;
 using Xunit;
@@ -6,27 +7,18 @@ namespace Tests;
 
 public class ArmyTests
 {
-    public static IEnumerable<object[]> TestData1 =>
+    public static IEnumerable<object[]> TestData =>
         new List<object[]>
-        {
-            new object[] { "Warrior", 15, "Knight", 7 },
-            new object[] { "Knight", 10, "Knight", 7 },
-            new object[] { "Knight", 5, "Warrior", 7 },
-            new object[] { "Warrior", 10, "Warrior", 7 }
-        };
-
-    public static IEnumerable<object[]> TestData2 =>
-        new List<object[]>
-        {
-            new object[] { "Warrior", 5, "Knight", 10 },
-            new object[] { "Knight", 10, "Knight", 12 },
-            new object[] { "Knight", 5, "Warrior", 9 },
-            new object[] { "Warrior", 10, "Warrior", 11 }
-        };
+            {
+                new object[] { typeof(Warrior), 15, typeof(Knight), 7, true },
+                new object[] { typeof(Knight), 10, typeof(Knight), 7, true },
+                new object[] { typeof(Warrior), 5, typeof(Knight), 10, false },
+                new object[] { typeof(Knight), 10, typeof(Knight), 12, false },
+            };
 
     [Theory]
-    [MemberData(nameof(TestData1))]
-    public void FirstWinSecond(string armyType1, int armyCount1, string armyType2, int armyCount2)
+    [MemberData(nameof(TestData))]
+    public void ArmyAndArmy_Fight_Correct(Type armyType1, int armyCount1, Type armyType2, int armyCount2, bool expected)
     {
         var army1 = new Army();
         var army2 = new Army();
@@ -35,41 +27,54 @@ public class ArmyTests
 
         var result = Battle.Fight(army1, army2);
 
-        Assert.True(result);
+        Assert.Equal(expected, result);
     }
 
-    [Theory]
-    [MemberData(nameof(TestData2))]
-    public void SecondWinFirst(string armyType1, int armyCount1, string armyType2, int armyCount2)
+    [Fact]
+    public void CreateWarrior_WrongType_Exception()
     {
-        var army1 = new Army();
-        var army2 = new Army();
-        army1.AddUnits(armyType1, armyCount1);
-        army2.AddUnits(armyType2, armyCount2);
-
-        var result = Battle.Fight(army1, army2);
-
-        Assert.False(result);
+        Assert.Throws<Exception>(()=> Warrior.CreateWarrior(typeof(string)));
     }
     
     [Fact]
-    public void AddWarriors()
+    public void Fight_EmptyArmies_Exception()
     {
         var army1 = new Army();
-        army1.AddUnits("Warrior", 3);
+        var army2 = new Army();
+        
+        Assert.Throws<Exception>(()=> Battle.Fight(army1, army2));
+    }
+    
+    [Fact]
+    public void Fight_EmptyArmy_Correct()
+    {
+        var army1 = new Army();
+        var army2 = new Army();
+        army2.AddUnits(typeof(Warrior), 2);
 
-        var result = army1.HasUnits;
+        var result = Battle.Fight(army1, army2);
+        
+        Assert.False(result);
+    }
+
+    [Fact]
+    public void AddUnits_Warrior_Correct()
+    {
+        var army1 = new Army();
+        army1.AddUnits(typeof(Warrior), 3);
+
+        var result = army1.HasUnits();
         
         Assert.True(result);
     }
 
     [Fact]
-    public void AddKnights()
+    public void AddUnits_Knights_Correct()
     {
         var army1 = new Army();
-        army1.AddUnits("Knight", 3);
+        army1.AddUnits(typeof(Knight), 3);
 
-        var result = army1.HasUnits;
+        var result = army1.HasUnits();
         
         Assert.True(result);
     }

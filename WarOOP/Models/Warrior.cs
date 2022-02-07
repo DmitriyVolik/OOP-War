@@ -19,26 +19,20 @@ public class Warrior
 
     protected virtual void GetDamageFrom(Warrior enemy)
     {
-        if (IsAlive) CurrentHealth -= enemy.Attack;
+        if (IsAlive) {CurrentHealth -= enemy.Attack;}
     }
 
     public void AttackTo(Warrior enemy)
     {
-        if (IsAlive) enemy.GetDamageFrom(this);
+        if (IsAlive) {enemy.GetDamageFrom(this);}
     }
 
-    public static Warrior CreateWarrior(string type)
+    public static Warrior CreateWarrior(Type type)
     {
-        switch (type)
+        if (type.IsAssignableTo(typeof(Warrior)))
         {
-            case "Warrior":
-                return new Warrior();
-            case "Knight":
-                return new Knight();
-            case "Defender":
-                return new Defender();
-            default:
-                throw new Exception("Type not found");
+            return (Warrior)Activator.CreateInstance(type);
         }
+        throw new Exception("Type not found");
     }
 }
