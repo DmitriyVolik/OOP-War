@@ -7,15 +7,15 @@ public static class Battle
         while (true)
         {
             warrior1.AttackTo(warrior2);
-            if (!warrior1.IsAlive)
-            {
-                return false;
-            }
-
-            warrior2.AttackTo(warrior1);
             if (!warrior2.IsAlive)
             {
                 return true;
+            }
+
+            warrior2.AttackTo(warrior1);
+            if (!warrior1.IsAlive)
+            {
+                return false;
             }
         }
     }
@@ -35,15 +35,15 @@ public static class Battle
         while (true)
         {
             army1.GetUnit().AttackTo(army2.GetUnit());
-            if (!army1.HasUnits)
-            {
-                return false;
-            }
-            
-            army2.GetUnit().AttackTo(army1.GetUnit());
             if (!army2.HasUnits)
             {
                 return true;
+            }
+
+            army2.GetUnit().AttackTo(army1.GetUnit());
+            if (!army1.HasUnits)
+            {
+                return false;
             }
         }
     }

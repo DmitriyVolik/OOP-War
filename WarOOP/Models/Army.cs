@@ -6,7 +6,7 @@ namespace WarOOP.Models;
 
 public class Army : IArmy
 {
-    private List<Warrior> Units;
+    public List<Warrior> Units;
 
     public bool HasUnits
     {
@@ -27,28 +27,12 @@ public class Army : IArmy
     
     public void AddUnits(string type, int count)
     {
-        Warrior warrior;
-        
-        switch (type)
-        {
-            case "Warrior":
-                warrior = new Warrior();
-                break;
-            case "Knight":
-                warrior = new Knight();
-                break;
-            default:
-                throw new Exception("Type not found");
-        }
-
         for (int i = 0; i < count; i++)
         {
-            Units.Add(warrior);
+            Units.Add(Warrior.CreateWarrior(type));
         }
     }
 
-    public Warrior GetUnit()
-    {
-        return Units[0];
-    }
+    public Warrior GetUnit() => Units[0];
+
 }
