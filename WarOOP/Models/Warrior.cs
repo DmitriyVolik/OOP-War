@@ -4,7 +4,7 @@ public class Warrior
 {
     public bool IsAlive => CurrentHealth > 0;
 
-    public readonly int StartHealth;
+    public int StartHealth { get; protected set; }
 
     public int CurrentHealth { get; protected set; }
 
@@ -17,7 +17,24 @@ public class Warrior
         Attack = 5;
     }
 
-    private void GetDamageFrom(Warrior enemy) => CurrentHealth -= enemy.Attack;
+    protected virtual void GetDamageFrom(Warrior enemy)
+    {
+        if (IsAlive)
+        {
+            CurrentHealth -= enemy.Attack;
+        }
+    }
 
-    public void AttackTo(Warrior enemy) => enemy.GetDamageFrom(this);
+    public void AttackTo(Warrior enemy)
+    {
+        if (IsAlive)
+        {
+            enemy.GetDamageFrom(this);
+        }
+    }
+
+    public static Warrior CreateWarrior<T>() where T : Warrior, new()
+    {
+        return new T();
+    }
 }
