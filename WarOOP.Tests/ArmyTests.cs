@@ -86,19 +86,19 @@ public class ArmyTests
     }
     
     [Theory]
-    [MemberData(nameof(TestData1))]
-    public void FightWithDefenders(string armyType1, int armyCount1, string armyType2, int armyCount2)
+    [MemberData(nameof(TestData))]
+    public void Fight_ArmyWithDefenders_Correct(int armyCount1, int armyCount2, bool expected)
     {
         var army1 = new Army();
         var army2 = new Army();
-        army1.AddUnits(armyType1, armyCount1);
-        army1.AddUnits("Defender", 6);
-        army2.AddUnits(armyType2, armyCount2);
-        army2.AddUnits("Defender", 5);
+        army1.AddUnits<Warrior>(armyCount1);
+        army1.AddUnits<Warrior>(6);
+        army2.AddUnits<Defender>(armyCount2);
+        army2.AddUnits<Defender>(5);
 
         var result = Battle.Fight(army1, army2);
 
-        Assert.True(result);
+        Assert.Equal(expected,result);
     }
 
     [Fact]

@@ -11,6 +11,7 @@ public class Defender : Warrior
         Attack = 3;
         Defense = 2;
     }
+    
     protected override void GetDamageFrom(Warrior enemy)
     {
         if (enemy.Attack>Defense)
