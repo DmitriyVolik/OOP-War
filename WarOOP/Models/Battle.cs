@@ -29,17 +29,17 @@ public static class Battle
             throw new NullReferenceException("Army can not be null");
         }
         
-        if (!army1.HasUnits() && !army2.HasUnits())
+        if (!army1.HasUnits && !army2.HasUnits)
         {
             throw new Exception("Armies can not be empty");
         }
 
-        if (!army1.HasUnits())
+        if (!army1.HasUnits)
         {
             return false;
         }
         
-        if (!army2.HasUnits())
+        if (!army2.HasUnits)
         {
             return true;
         }
@@ -47,13 +47,21 @@ public static class Battle
         while (true)
         {
             army1.GetUnit().AttackTo(army2.GetUnit());
-            if (!army2.HasUnits())
+            if (!army2.GetUnit().IsAlive)
+            {
+                army2.SetNextUnit();
+            }
+            if (!army2.HasUnits)
             {
                 return true;
             }
 
             army2.GetUnit().AttackTo(army1.GetUnit());
-            if (!army1.HasUnits())
+            if (!army1.GetUnit().IsAlive)
+            {
+                army1.SetNextUnit();
+            }
+            if (!army1.HasUnits)
             {
                 return false;
             }

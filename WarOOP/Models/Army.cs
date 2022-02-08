@@ -4,37 +4,41 @@ using WarOOP.Abstractions;
 
 namespace WarOOP.Models;
 
-public class Army : IArmy
+public class Army 
 {
-    private List<Warrior> Units;
+    private readonly List<Warrior> _units;
+
+    public bool HasUnits => _units.Count > _currentUnit ;
+    
+    private int _currentUnit;
 
     public Army()
     {
-        Units = new List<Warrior>();
+        _currentUnit=0;
+        _units = new List<Warrior>();
     }
     
-    public void AddUnits(Type type, int count)
+    public void AddUnits<T>(int count) where T : Warrior, new()
     {
         for (int i = 0; i < count; i++)
         {
-            Units.Add(Warrior.CreateWarrior(type));
+            _units.Add(Warrior.CreateWarrior<T>());
         }
     }
-    
-    public bool HasUnits()
+
+    public void SetNextUnit()
     {
-        if (Units.Count > 0 && !Units[0].IsAlive)
+        if (HasUnits)
         {
-            Units.Remove(Units[0]);
+            _currentUnit++;
         }
-        return Units.Count > 0;
     }
 
     public Warrior GetUnit()
     {
-        if (HasUnits())
+        if (HasUnits)
         {
-            return Units[0];
+            return _units[_currentUnit];
         }
         return null!;
     }
