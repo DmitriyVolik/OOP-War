@@ -9,40 +9,25 @@ public class WarriorTests
     public static IEnumerable<object[]> TestData =>
         new List<object[]>
         {
-            new object[] { new Knight(), new Warrior() },
-            new object[] { new Warrior(), new Warrior() },
-            new object[] { new Knight(), new Knight() },
-        };
-    
-    public static IEnumerable<object[]> TestData2 =>
-        new List<object[]>
-        {
-            new object[] { new Warrior(), new Knight() },
-            new object[] { new Warrior(), new Defender() },
+            new object[] { new Knight(), new Warrior(), true },
+            new object[] { new Warrior(), new Warrior(), true },
+            new object[] { new Knight(), new Knight(), true },
+            new object[] { new Warrior(), new Knight(), false },
+            new object[] { new Warrior(), new Defender(), false },
         };
 
     [Theory]
     [MemberData(nameof(TestData))]
-    public void FirstWinSecond(Warrior warrior1, Warrior warrior2)
+    public void Fight_Warriors_Correct(Warrior warrior1, Warrior warrior2, bool expected)
     {
         var result = Battle.Fight(warrior1, warrior2);
 
-        Assert.True(result);
-    }
-
-    [Theory]
-    [MemberData(nameof(TestData2))]
-    public void SecondWinFirst(Warrior warrior1, Warrior warrior2)
-    {
-        
-        var result = Battle.Fight(warrior1, warrior2);
-
-        Assert.False(result);
+        Assert.Equal(expected,result);
     }
 
     [Theory]
     [MemberData(nameof(TestData))]
-    public void WarriorAttackWarrior(Warrior warrior1, Warrior warrior2)
+    public void AttackTo_Warriors_Correct(Warrior warrior1, Warrior warrior2, bool expected)
     {
         warrior1.AttackTo(warrior2);
 
@@ -50,15 +35,14 @@ public class WarriorTests
     }
 
     [Fact]
-    public void WarriorAttackDefender()
+    public void Fight_WarriorAndDefender_Correct()
     {
         var warrior = new Warrior();
         var defender = new Defender();
-        
+
         warrior.AttackTo(defender);
         var result = defender.CurrentHealth == defender.StartHealth - (warrior.Attack - defender.Defense);
-        
+
         Assert.True(result);
     }
-
 }
