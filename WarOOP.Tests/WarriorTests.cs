@@ -11,7 +11,14 @@ public class WarriorTests
         {
             new object[] { new Knight(), new Warrior() },
             new object[] { new Warrior(), new Warrior() },
-            new object[] { new Knight(), new Knight() }
+            new object[] { new Knight(), new Knight() },
+        };
+    
+    public static IEnumerable<object[]> TestData2 =>
+        new List<object[]>
+        {
+            new object[] { new Warrior(), new Knight() },
+            new object[] { new Warrior(), new Defender() },
         };
 
     [Theory]
@@ -23,13 +30,11 @@ public class WarriorTests
         Assert.True(result);
     }
 
-    [Fact]
-    public void SecondWinFirst()
+    [Theory]
+    [MemberData(nameof(TestData2))]
+    public void SecondWinFirst(Warrior warrior1, Warrior warrior2)
     {
-        var warrior1 = new Warrior();
-        var warrior2 = new Knight();
-
-        warrior1.AttackTo(warrior2);
+        
         var result = Battle.Fight(warrior1, warrior2);
 
         Assert.False(result);
@@ -42,6 +47,18 @@ public class WarriorTests
         warrior1.AttackTo(warrior2);
 
         Assert.True(warrior2.CurrentHealth < warrior2.StartHealth);
+    }
+
+    [Fact]
+    public void WarriorAttackDefender()
+    {
+        var warrior = new Warrior();
+        var defender = new Defender();
+        
+        warrior.AttackTo(defender);
+        var result = defender.CurrentHealth == defender.StartHealth - (warrior.Attack - defender.Defense);
+        
+        Assert.True(result);
     }
 
 }

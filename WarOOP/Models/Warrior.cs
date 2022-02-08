@@ -25,6 +25,7 @@ public class Warrior
         }
     }
 
+
     public void AttackTo(Warrior enemy)
     {
         if (IsAlive)
