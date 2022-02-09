@@ -18,6 +18,10 @@ public class Vampire : Warrior
         {
             var damage = enemy.GetDamageFrom(this);
             CurrentHealth += (damage * Vampirism) / 100;
+            if (CurrentHealth > StartHealth)
+            {
+                CurrentHealth -= CurrentHealth - StartHealth;
+            }
         }
     }
 }

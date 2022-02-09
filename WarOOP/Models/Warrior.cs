@@ -22,11 +22,18 @@ public class Warrior
         if (IsAlive)
         {
             CurrentHealth -= enemy.Attack;
-            
             return enemy.CurrentHealth < 0 ? enemy.Attack + enemy.CurrentHealth : enemy.Attack;
         }
 
         return 0;
+    }
+    
+    protected internal void GetDamage(int damage)
+    {
+        if (IsAlive)
+        {
+            CurrentHealth -= damage;
+        }
     }
 
     public virtual void AttackTo(Warrior enemy)

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Tests.Models;
 using WarOOP.Models;
 using Xunit;
 
@@ -72,6 +73,30 @@ public class WarriorTests
         var result = vampire.CurrentHealth ==
                      vampire.StartHealth - defender.Attack +
                      (vampire.Attack - defender.Defense) * vampire.Vampirism / 100;
+
+        Assert.True(result);
+    }
+    
+    [Fact]
+    public void AttackTo_RookieToDefender_Correct()
+    {
+        var rookie = new Rookie();
+        var defender = new Defender();
+
+        rookie.AttackTo(defender);
+        var result = defender.CurrentHealth == defender.StartHealth;
+
+        Assert.True(result);
+    }
+    
+    [Fact]
+    public void AttackTo_VampireFirst_Correct()
+    {
+        var vampire = new Vampire();
+        var warrior = new Warrior();
+
+        vampire.AttackTo(warrior);
+        var result = vampire.CurrentHealth == vampire.StartHealth;
 
         Assert.True(result);
     }

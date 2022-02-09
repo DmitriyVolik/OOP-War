@@ -42,4 +42,19 @@ public class Army : IArmy
         }
         return null!;
     }
+    
+    public Warrior GetNextUnit()
+    {
+        if (HasUnits)
+        {
+            for (int i = _currentUnit + 1; i < _units.Count; i++)
+            {
+                if (_units[i].IsAlive)
+                {
+                    return _units[i];
+                }
+            }
+        }
+        return null!;
+    }
 }

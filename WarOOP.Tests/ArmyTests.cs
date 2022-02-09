@@ -103,7 +103,7 @@ public class ArmyTests
     
     [Theory]
     [MemberData(nameof(TestData))]
-    public void Fight_ArmyVampires_Correct(int armyCount1, int armyCount2, bool expected)
+    public void Fight_ArmyWithVampires_Correct(int armyCount1, int armyCount2, bool expected)
     {
         var army1 = new Army();
         var army2 = new Army();
@@ -111,6 +111,22 @@ public class ArmyTests
         army1.AddUnits<Vampire>(6);
         army2.AddUnits<Warrior>(armyCount2);
         army2.AddUnits<Vampire>(5);
+
+        var result = Battle.Fight(army1, army2);
+
+        Assert.Equal(expected,result);
+    }
+    
+    [Theory]
+    [MemberData(nameof(TestData))]
+    public void Fight_ArmyWithLancers_Correct(int armyCount1, int armyCount2, bool expected)
+    {
+        var army1 = new Army();
+        var army2 = new Army();
+        army1.AddUnits<Warrior>(armyCount1);
+        army1.AddUnits<Lancer>(6);
+        army2.AddUnits<Warrior>(armyCount2);
+        army2.AddUnits<Lancer>(6);
 
         var result = Battle.Fight(army1, army2);
 
@@ -148,6 +164,23 @@ public class ArmyTests
 
         var result = army1.HasUnits;
         
+        Assert.True(result);
+    }
+    
+    [Fact]
+    public void AttackTo_LancerToWarriors_Correct()
+    {
+        var army1 = new Army();
+        var army2 = new Army();
+        army1.AddUnits<Lancer>(1);
+        army2.AddUnits<Warrior>(1);
+        army2.AddUnits<Warrior>(1);
+
+        var lancer = (Lancer)army1.GetUnit();
+        lancer.AttackTo(army2.GetUnit(), army2.GetNextUnit());
+        var result = army2.GetUnit().CurrentHealth == army2.GetUnit().StartHealth - lancer.Attack &&
+                     army2.GetNextUnit().CurrentHealth == army2.GetNextUnit().StartHealth - lancer.Attack / 2;
+
         Assert.True(result);
     }
 }
