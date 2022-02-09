@@ -17,16 +17,19 @@ public class Warrior
         Attack = 5;
     }
 
-    protected virtual void GetDamageFrom(Warrior enemy)
+    protected internal virtual int GetDamageFrom(Warrior enemy)
     {
         if (IsAlive)
         {
             CurrentHealth -= enemy.Attack;
+            
+            return enemy.CurrentHealth < 0 ? enemy.Attack + enemy.CurrentHealth : enemy.Attack;
         }
+
+        return 0;
     }
 
-
-    public void AttackTo(Warrior enemy)
+    public virtual void AttackTo(Warrior enemy)
     {
         if (IsAlive)
         {

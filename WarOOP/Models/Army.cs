@@ -4,7 +4,7 @@ using WarOOP.Abstractions;
 
 namespace WarOOP.Models;
 
-public class Army 
+public class Army : IArmy
 {
     private readonly List<Warrior> _units;
 
