@@ -2,8 +2,8 @@ namespace WarOOP.Models;
 
 public class Vampire : Warrior
 {
-    public readonly int Vampirism; 
-    
+    public int Vampirism { get; private set;}
+
     public Vampire()
     {
         CurrentHealth = 40;

@@ -55,8 +55,8 @@ public class WarriorTests
 
         warrior.AttackTo(vampire);
         vampire.AttackTo(warrior);
-        var result = vampire.CurrentHealth ==
-                     vampire.StartHealth - warrior.Attack + vampire.Attack * vampire.Vampirism / 100;
+        var expectedVampireHealth = vampire.StartHealth - warrior.Attack + vampire.Attack * vampire.Vampirism / 100;
+        var result = vampire.CurrentHealth == expectedVampireHealth;
 
         Assert.True(result);
     }
@@ -69,9 +69,10 @@ public class WarriorTests
 
         defender.AttackTo(vampire);
         vampire.AttackTo(defender);
-        var result = vampire.CurrentHealth ==
-                     vampire.StartHealth - defender.Attack +
-                     (vampire.Attack - defender.Defense) * vampire.Vampirism / 100;
+        var expectedVampireHealth = vampire.StartHealth - defender.Attack +
+                                    (vampire.Attack - defender.Defense) * vampire.Vampirism / 100;
+        var result = vampire.CurrentHealth == expectedVampireHealth;
+
 
         Assert.True(result);
     }
