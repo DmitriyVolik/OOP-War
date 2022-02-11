@@ -109,7 +109,7 @@ public class WarriorTests
         army1.AddUnits<Lancer>(1);
         army2.AddUnits<Warrior>(1);
         army2.AddUnits<Warrior>(1);
-        army2.SetUnitsBehind();
+        //army2.SetUnitsBehind();
 
         var lancer = army1.GetUnit();
         lancer.AttackTo(army2.GetUnit());
@@ -131,7 +131,7 @@ public class WarriorTests
         army2.AddUnits<Warrior>(1);
         army2.AddUnits<RookieLowHp>(1);
         army2.AddUnits<Warrior>(1);
-        army2.SetUnitsBehind();
+        //army2.SetUnitsBehind();
 
         var lancer = army1.GetUnit();
         lancer.AttackTo(army2.GetUnit());
@@ -149,7 +149,7 @@ public class WarriorTests
         var army2 = new Army();
         army1.AddUnits<Lancer>(1);
         army2.AddUnits<Defender>(2);
-        army2.SetUnitsBehind();
+        //army2.SetUnitsBehind();
 
         var lancer = army1.GetUnit();
         lancer.AttackTo(army2.GetUnit());

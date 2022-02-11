@@ -22,15 +22,12 @@ public class Army : IArmy
     {
         for (int i = 0; i < count; i++)
         {
-            _units.Add(Warrior.CreateWarrior<T>());
-        }
-    }
-
-    public void SetUnitsBehind()
-    {
-        for (int i = 0; i < _units.Count-1; i++)
-        {
-            _units[i].SetUnitBehind(_units[i+1]);
+            var unit = Warrior.CreateWarrior<T>();
+            _units.Add(unit);
+            if (_units.Count > 1)
+            {
+                _units[^2].SetUnitBehind(unit);
+            }
         }
     }
 
