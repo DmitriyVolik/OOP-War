@@ -22,24 +22,6 @@ public static class Battle
         }
     }
 
-    private static bool FightArmyWarriors(Army army1, Army army2)
-    {
-        while (true)
-        {
-            army1.GetUnit().AttackTo(army2);
-            if (!army2.GetUnit().IsAlive)
-            {
-                return true;
-            }
-
-            army2.GetUnit().AttackTo(army1);
-            if (!army1.GetUnit().IsAlive)
-            {
-                return false;
-            }
-        }
-    }
-
     public static bool Fight(Army army1, Army army2)
     {
         if (army1 == null || army2 == null)
@@ -64,7 +46,7 @@ public static class Battle
         
         while (true)
         {
-            var fightResult=FightArmyWarriors(army1, army2);
+            var fightResult=Fight(army1.GetUnit(), army2.GetUnit());
 
             if (fightResult)
             {
@@ -82,45 +64,6 @@ public static class Battle
                     return false;
                 }
             }
-            
-
-            /*if (army1.GetUnit().GetType() == typeof(Lancer))
-            {
-                var lancer = (Lancer)army1.GetUnit();
-                lancer.AttackTo(army2.GetUnit(), army2.GetNextUnit());
-            }
-            else
-            {
-                army1.GetUnit().AttackTo(army2.GetUnit());
-            }
-            
-            if (!army2.GetUnit().IsAlive)
-            {
-                army2.SetNextUnit();
-            }
-            if (!army2.HasUnits)
-            {
-                return true;
-            }
-
-            if (army2.GetUnit().GetType() == typeof(Lancer))
-            {
-                var lancer = (Lancer)army2.GetUnit();
-                lancer.AttackTo(army1.GetUnit(), army1.GetNextUnit());
-            }
-            else
-            {
-                army2.GetUnit().AttackTo(army1.GetUnit());
-            }
-
-            if (!army1.GetUnit().IsAlive)
-            {
-                army1.SetNextUnit();
-            }
-            if (!army1.HasUnits)
-            {
-                return false;
-            }*/
         }
     }
 }

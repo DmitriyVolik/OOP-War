@@ -26,6 +26,14 @@ public class Army : IArmy
         }
     }
 
+    public void SetUnitsBehind()
+    {
+        for (int i = 0; i < _units.Count-1; i++)
+        {
+            _units[i].SetUnitBehind(_units[i+1]);
+        }
+    }
+
     public void SetNextUnit()
     {
         if (HasUnits)
@@ -39,21 +47,6 @@ public class Army : IArmy
         if (HasUnits)
         {
             return _units[_currentUnit];
-        }
-        return null!;
-    }
-    
-    public Warrior GetNextUnit()
-    {
-        if (HasUnits)
-        {
-            for (int i = _currentUnit + 1; i < _units.Count; i++)
-            {
-                if (_units[i].IsAlive)
-                {
-                    return _units[i];
-                }
-            }
         }
         return null!;
     }

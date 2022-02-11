@@ -10,6 +10,8 @@ public class Warrior
 
     public int Attack { get; protected set; }
 
+    public Warrior UnitBehind { get; private set; }
+
     public Warrior()
     {
         CurrentHealth = 50;
@@ -35,14 +37,17 @@ public class Warrior
             enemy.GetDamageFrom(new Hit(Attack,this));
         }
     }
-    
-    public virtual void AttackTo(Army army)
-    {
-        AttackTo(army.GetUnit());
-    }
 
     public static Warrior CreateWarrior<T>() where T : Warrior, new()
     {
         return new T();
+    }
+
+    public void SetUnitBehind(Warrior unit)
+    {
+        if (UnitBehind == null)
+        {
+            UnitBehind = unit;
+        }
     }
 }
