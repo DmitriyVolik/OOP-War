@@ -9,9 +9,9 @@ public class Lancer : Warrior
         Attack = 6;
     }
 
-    public void AttackTo(Warrior enemy1, Warrior? enemy2)
+    public override void AttackTo(Army army)
     {
-        var damage = enemy1.GetDamageFrom(this);
-        enemy2?.GetDamage(damage / 2);
+        var damage = army.GetUnit().GetDamageFrom(new Hit(Attack,this));
+        army.GetNextUnit()?.GetDamageFrom(new Hit(damage/2,this));
     }
 }

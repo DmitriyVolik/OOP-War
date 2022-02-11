@@ -17,31 +17,28 @@ public class Warrior
         Attack = 5;
     }
 
-    protected internal virtual int GetDamageFrom(Warrior enemy)
+    protected internal virtual int GetDamageFrom(Hit hit)
     {
         if (IsAlive)
         {
-            CurrentHealth -= enemy.Attack;
-            return enemy.CurrentHealth < 0 ? enemy.Attack + enemy.CurrentHealth : enemy.Attack;
+            CurrentHealth -= hit.Damage;
+            return hit.Enemy.CurrentHealth < 0 ? hit.Enemy.Attack + hit.Enemy.CurrentHealth : hit.Enemy.Attack;
         }
 
         return 0;
-    }
-    
-    protected internal void GetDamage(int damage)
-    {
-        if (IsAlive)
-        {
-            CurrentHealth -= damage;
-        }
     }
 
     public virtual void AttackTo(Warrior enemy)
     {
         if (IsAlive)
         {
-            enemy.GetDamageFrom(this);
+            enemy.GetDamageFrom(new Hit(Attack,this));
         }
+    }
+    
+    public virtual void AttackTo(Army army)
+    {
+        AttackTo(army.GetUnit());
     }
 
     public static Warrior CreateWarrior<T>() where T : Warrior, new()

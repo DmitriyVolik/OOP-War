@@ -22,6 +22,24 @@ public static class Battle
         }
     }
 
+    private static bool FightArmyWarriors(Army army1, Army army2)
+    {
+        while (true)
+        {
+            army1.GetUnit().AttackTo(army2);
+            if (!army2.GetUnit().IsAlive)
+            {
+                return true;
+            }
+
+            army2.GetUnit().AttackTo(army1);
+            if (!army1.GetUnit().IsAlive)
+            {
+                return false;
+            }
+        }
+    }
+
     public static bool Fight(Army army1, Army army2)
     {
         if (army1 == null || army2 == null)
@@ -46,7 +64,27 @@ public static class Battle
         
         while (true)
         {
-            if (army1.GetUnit().GetType() == typeof(Lancer))
+            var fightResult=FightArmyWarriors(army1, army2);
+
+            if (fightResult)
+            {
+                army2.SetNextUnit();
+                if (!army2.HasUnits)
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                army1.SetNextUnit();
+                if (!army1.HasUnits)
+                {
+                    return false;
+                }
+            }
+            
+
+            /*if (army1.GetUnit().GetType() == typeof(Lancer))
             {
                 var lancer = (Lancer)army1.GetUnit();
                 lancer.AttackTo(army2.GetUnit(), army2.GetNextUnit());
@@ -82,7 +120,7 @@ public static class Battle
             if (!army1.HasUnits)
             {
                 return false;
-            }
+            }*/
         }
     }
 }

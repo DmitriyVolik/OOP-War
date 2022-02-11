@@ -1,9 +1,10 @@
 using System.Collections.Generic;
-using Tests.Models;
 using WarOOP.Models;
+using WarOOP.Tests.Models;
 using Xunit;
+using RookieLowHp = WarOOP.Tests.Models.RookieLowHp;
 
-namespace Tests;
+namespace WarOOP.Tests;
 
 public class WarriorTests
 {
@@ -98,6 +99,45 @@ public class WarriorTests
         vampire.AttackTo(warrior);
         var result = vampire.CurrentHealth == vampire.StartHealth;
 
+        Assert.True(result);
+    }
+    
+    [Fact]
+    public void AttackTo_LancerToWarriors_Correct()
+    {
+        var army1 = new Army();
+        var army2 = new Army();
+        army1.AddUnits<Lancer>(1);
+        army2.AddUnits<Warrior>(1);
+        army2.AddUnits<Warrior>(1);
+
+        var lancer = army1.GetUnit();
+        lancer.AttackTo(army2);
+        var expectedHealth1 = army2.GetUnit().StartHealth - lancer.Attack;
+        var expectedHealth2 = army2.GetNextUnit().StartHealth - lancer.Attack / 2;
+        var result = army2.GetUnit().CurrentHealth == expectedHealth1 &&
+                     army2.GetNextUnit().CurrentHealth == expectedHealth2;
+
+        Assert.True(result);
+    }
+    
+    [Fact]
+    public void Army_UnitsShiftForLancer_Correct()
+    {
+        var testWarrior = new Warrior();   
+        var army1 = new Army();
+        var army2 = new Army();
+        army1.AddUnits<Lancer>(1);
+        army2.AddUnits<Warrior>(1);
+        army2.AddUnits<RookieLowHp>(1);
+        army2.AddUnits<Warrior>(1);
+
+        var lancer = army1.GetUnit();
+        lancer.AttackTo(army2);
+        lancer.AttackTo(army2);
+        var expectedHealth = testWarrior.StartHealth - lancer.Attack / 2;
+        var result = army2.GetNextUnit().CurrentHealth == expectedHealth;
+        
         Assert.True(result);
     }
 }

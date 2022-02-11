@@ -16,7 +16,7 @@ public class Vampire : Warrior
     {
         if (IsAlive)
         {
-            var damage = enemy.GetDamageFrom(this);
+            var damage = enemy.GetDamageFrom(new Hit(Attack, this));
             CurrentHealth += (damage * Vampirism) / 100;
             if (CurrentHealth > StartHealth)
             {
@@ -24,4 +24,5 @@ public class Vampire : Warrior
             }
         }
     }
+
 }

@@ -2,11 +2,11 @@ using WarOOP.Models;
 
 namespace WarOOP.Tests.Models;
 
-public class Rookie : Warrior
+public class RookieLowHp : Warrior
 {
-    public Rookie()
+    public RookieLowHp()
     {
-        CurrentHealth = 50;
+        CurrentHealth = 2;
         StartHealth = CurrentHealth;
         Attack = 1;
     }
