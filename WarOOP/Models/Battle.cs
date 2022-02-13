@@ -46,24 +46,23 @@ public static class Battle
         
         while (true)
         {
-            army1.GetUnit().AttackTo(army2.GetUnit());
-            if (!army2.GetUnit().IsAlive)
+            var fightResult=Fight(army1.GetUnit(), army2.GetUnit());
+
+            if (fightResult)
             {
                 army2.SetNextUnit();
+                if (!army2.HasUnits)
+                {
+                    return true;
+                }
             }
-            if (!army2.HasUnits)
-            {
-                return true;
-            }
-
-            army2.GetUnit().AttackTo(army1.GetUnit());
-            if (!army1.GetUnit().IsAlive)
+            else
             {
                 army1.SetNextUnit();
-            }
-            if (!army1.HasUnits)
-            {
-                return false;
+                if (!army1.HasUnits)
+                {
+                    return false;
+                }
             }
         }
     }

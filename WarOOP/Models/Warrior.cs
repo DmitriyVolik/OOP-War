@@ -10,6 +10,8 @@ public class Warrior
 
     public int Attack { get; protected set; }
 
+    public Warrior UnitBehind { get; private set; }
+
     public Warrior()
     {
         CurrentHealth = 50;
@@ -17,13 +19,12 @@ public class Warrior
         Attack = 5;
     }
 
-    protected internal virtual int GetDamageFrom(Warrior enemy)
+    protected internal virtual int GetDamageFrom(Hit hit)
     {
         if (IsAlive)
         {
-            CurrentHealth -= enemy.Attack;
-            
-            return enemy.CurrentHealth < 0 ? enemy.Attack + enemy.CurrentHealth : enemy.Attack;
+            CurrentHealth -= hit.Damage;
+            return hit.Enemy.CurrentHealth < 0 ? hit.Enemy.Attack + hit.Enemy.CurrentHealth : hit.Enemy.Attack;
         }
 
         return 0;
@@ -33,12 +34,20 @@ public class Warrior
     {
         if (IsAlive)
         {
-            enemy.GetDamageFrom(this);
+            enemy.GetDamageFrom(new Hit(Attack,this));
         }
     }
 
     public static Warrior CreateWarrior<T>() where T : Warrior, new()
     {
         return new T();
+    }
+
+    public void SetUnitBehind(Warrior unit)
+    {
+        if (UnitBehind == null)
+        {
+            UnitBehind = unit;
+        }
     }
 }

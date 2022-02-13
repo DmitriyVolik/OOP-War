@@ -12,14 +12,14 @@ public class Defender : Warrior
         Defense = 2;
     }
 
-    protected internal override int GetDamageFrom(Warrior enemy)
+    protected internal override int GetDamageFrom(Hit hit)
     {
-        if (enemy.Attack > Defense)
+        if (hit.Damage > Defense)
         {
-            var damage = enemy.Attack - Defense;
+            var damage = hit.Damage - Defense;
             CurrentHealth -= damage;
 
-            return enemy.CurrentHealth < 0 ? damage + enemy.CurrentHealth : damage;
+            return hit.Enemy.CurrentHealth < 0 ? damage + hit.Enemy.CurrentHealth : damage;
         }
 
         return 0;
