@@ -4,7 +4,7 @@ using WarOOP.Abstractions;
 
 namespace WarOOP.Models;
 
-public class Army 
+public class Army : IArmy
 {
     private readonly List<Warrior> _units;
 
@@ -17,21 +17,39 @@ public class Army
         _currentUnit=0;
         _units = new List<Warrior>();
     }
+
+    public void PrepareUnitsForBattle()
+    {
+        foreach (var unit in _units)
+        {
+            unit.PrepareForBattle();
+        }
+    }
     
     public void AddUnits<T>(int count) where T : Warrior, new()
     {
         for (int i = 0; i < count; i++)
         {
-            _units.Add(Warrior.CreateWarrior<T>());
+            var unit = Warrior.CreateWarrior<T>();
+            _units.Add(unit);
+            if (_units.Count > 1)
+            {
+                _units[^2].SetUnitBehind(unit);
+            }
         }
     }
 
     public void SetNextUnit()
     {
-        if (HasUnits)
+        _currentUnit++;
+        /*while (HasUnits)
         {
+            if (_units[_currentUnit].Attack>0)
+            {
+                break;
+            }
             _currentUnit++;
-        }
+        }*/
     }
 
     public Warrior GetUnit()

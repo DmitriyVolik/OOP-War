@@ -6,7 +6,7 @@
 
         <IsPackable>false</IsPackable>
 
-        <RootNamespace>Tests</RootNamespace>
+        <RootNamespace>WarOOP.Tests</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>

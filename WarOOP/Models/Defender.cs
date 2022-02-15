@@ -11,12 +11,17 @@ public class Defender : Warrior
         Attack = 3;
         Defense = 2;
     }
-    
-    protected override void GetDamageFrom(Warrior enemy)
+
+    protected internal override int GetDamageFrom(Hit hit)
     {
-        if (enemy.Attack>Defense)
+        if (hit.Damage > Defense)
         {
-            CurrentHealth -= enemy.Attack - Defense;
+            var damage = hit.Damage - Defense;
+            CurrentHealth -= damage;
+
+            return hit.Enemy.CurrentHealth < 0 ? damage + hit.Enemy.CurrentHealth : damage;
         }
+
+        return 0;
     }
 }
