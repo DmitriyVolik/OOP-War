@@ -6,6 +6,11 @@ public static class Battle
 {
     public static bool Fight(Warrior warrior1, Warrior warrior2)
     {
+        if (warrior1.Attack == 0 && warrior2.Attack == 0)
+        {
+            throw new Exception("Non damage units");
+        }
+        
         while (true)
         {
             warrior1.AttackTo(warrior2);
@@ -46,6 +51,8 @@ public static class Battle
         
         while (true)
         {
+            army1.PrepareUnitsForBattle();
+            army2.PrepareUnitsForBattle();
             var fightResult=Fight(army1.GetUnit(), army2.GetUnit());
 
             if (fightResult)

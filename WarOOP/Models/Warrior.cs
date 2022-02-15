@@ -6,7 +6,7 @@ public class Warrior
 
     public int StartHealth { get; protected set; }
 
-    public int CurrentHealth { get; protected set; }
+    public int CurrentHealth { get; protected internal set; }
 
     public int Attack { get; protected set; }
 
@@ -17,6 +17,11 @@ public class Warrior
         CurrentHealth = 50;
         StartHealth = CurrentHealth;
         Attack = 5;
+    }
+
+    public virtual void PrepareForBattle()
+    {
+        
     }
 
     protected internal virtual int GetDamageFrom(Hit hit)
@@ -30,11 +35,17 @@ public class Warrior
         return 0;
     }
 
+    protected internal virtual void Action(Warrior warrior)
+    {
+        UnitBehind?.Action(this);
+    }
+
     public virtual void AttackTo(Warrior enemy)
     {
         if (IsAlive)
         {
             enemy.GetDamageFrom(new Hit(Attack,this));
+            Action(this);
         }
     }
 
