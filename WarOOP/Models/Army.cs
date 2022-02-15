@@ -17,6 +17,14 @@ public class Army : IArmy
         _currentUnit=0;
         _units = new List<Warrior>();
     }
+
+    public void PrepareUnitsForBattle()
+    {
+        foreach (var unit in _units)
+        {
+            unit.PrepareForBattle();
+        }
+    }
     
     public void AddUnits<T>(int count) where T : Warrior, new()
     {
@@ -33,10 +41,15 @@ public class Army : IArmy
 
     public void SetNextUnit()
     {
-        if (HasUnits)
+        _currentUnit++;
+        /*while (HasUnits)
         {
+            if (_units[_currentUnit].Attack>0)
+            {
+                break;
+            }
             _currentUnit++;
-        }
+        }*/
     }
 
     public Warrior GetUnit()

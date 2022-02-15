@@ -22,6 +22,7 @@ public class Vampire : Warrior
             {
                 CurrentHealth -= CurrentHealth - StartHealth;
             }
+            Action(this);
         }
     }
 
