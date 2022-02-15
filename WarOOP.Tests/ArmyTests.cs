@@ -176,8 +176,8 @@ public class ArmyTests
         army1.AddUnits<Lancer>(1);
         army2.AddUnits<Warrior>(1);
         army2.AddUnits<Warrior>(1);
-        army1.PrepareUnitsForBattle();
-        army2.PrepareUnitsForBattle();
+        army1.PrepareForFight();
+        army2.PrepareForFight();
 
         var lancer = army1.GetUnit();
         lancer.AttackTo(army2.GetUnit());
@@ -199,8 +199,8 @@ public class ArmyTests
         army2.AddUnits<Warrior>(1);
         army2.AddUnits<RookieLowHp>(1);
         army2.AddUnits<Warrior>(1);
-        army1.PrepareUnitsForBattle();
-        army2.PrepareUnitsForBattle();
+        army1.PrepareForFight();
+        army2.PrepareForFight();
         
         var lancer = army1.GetUnit();
         lancer.AttackTo(army2.GetUnit());
@@ -218,8 +218,8 @@ public class ArmyTests
         var army2 = new Army();
         army1.AddUnits<Lancer>(1);
         army2.AddUnits<Defender>(2);
-        army1.PrepareUnitsForBattle();
-        army2.PrepareUnitsForBattle();
+        army1.PrepareForFight();
+        army2.PrepareForFight();
 
         var lancer = army1.GetUnit();
         lancer.AttackTo(army2.GetUnit());
@@ -240,8 +240,8 @@ public class ArmyTests
         army1.AddUnits<Warrior>(1);
         army2.AddUnits<Warrior>(1);
         army2.AddUnits<Healer>(1);
-        army1.PrepareUnitsForBattle();
-        army2.PrepareUnitsForBattle();
+        army1.PrepareForFight();
+        army2.PrepareForFight();
         
         army1.GetUnit().AttackTo(army2.GetUnit());
         army2.GetUnit().AttackTo(army1.GetUnit());

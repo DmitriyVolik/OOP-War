@@ -18,19 +18,24 @@ public class Army : IArmy
         _units = new List<Warrior>();
     }
 
-    public void PrepareUnitsForBattle(bool isStraightFight = false)
+    public void PrepareForFight(bool isStraightFight = false)
     {
         if (!isStraightFight)
         {
             SetUnitsBehind();
         }
-        
+
+        PrepareForStraightFight();
+    }
+
+    public void PrepareForStraightFight()
+    {
         foreach (var unit in _units)
         {
             unit.PrepareForBattle();
         }
     }
-    
+
     public void AddUnits<T>(int count) where T : Warrior, new()
     {
         for (int i = 0; i < count; i++)
@@ -68,5 +73,10 @@ public class Army : IArmy
     public void ResetCurrentUnit()
     {
         _currentUnit = 0;
+    }
+
+    public IEnumerable<Warrior> AllAlive()
+    {
+        return _units.Where(x => x.IsAlive);
     }
 }
