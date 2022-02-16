@@ -29,7 +29,7 @@ public class Warrior
         if (IsAlive)
         {
             CurrentHealth -= hit.Damage;
-            return hit.Enemy.CurrentHealth < 0 ? hit.Enemy.Attack + hit.Enemy.CurrentHealth : hit.Enemy.Attack;
+            return CurrentHealth < 0 ? hit.Enemy.Attack + CurrentHealth : hit.Enemy.Attack;
         }
 
         return 0;

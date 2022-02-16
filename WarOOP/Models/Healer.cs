@@ -9,7 +9,6 @@ public class Healer : Warrior
         CurrentHealth = 60;
         StartHealth = CurrentHealth;
         Attack = 0;
-        MedKitCount = 100;
     }
 
     public override void PrepareForBattle()

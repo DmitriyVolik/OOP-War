@@ -4,6 +4,20 @@ namespace WarOOP.Models;
 
 public static class Battle
 {
+    
+    private static void Validate(Army army1, Army army2)
+    {
+        if (army1 == null || army2 == null)
+        {
+            throw new NullReferenceException("Army can not be null");
+        }
+        
+        if (!army1.HasUnits && !army2.HasUnits)
+        {
+            throw new Exception("Armies can not be empty");
+        }
+    }
+    
     public static bool Fight(Warrior warrior1, Warrior warrior2)
     {
         if (warrior1.Attack == 0 && warrior2.Attack == 0)
@@ -29,15 +43,7 @@ public static class Battle
 
     public static bool Fight(Army army1, Army army2)
     {
-        if (army1 == null || army2 == null)
-        {
-            throw new NullReferenceException("Army can not be null");
-        }
-        
-        if (!army1.HasUnits && !army2.HasUnits)
-        {
-            throw new Exception("Armies can not be empty");
-        }
+        Validate(army1, army2);
 
         if (!army1.HasUnits)
         {
@@ -51,8 +57,8 @@ public static class Battle
         
         while (true)
         {
-            army1.PrepareUnitsForBattle();
-            army2.PrepareUnitsForBattle();
+            army1.PrepareForFight();
+            army2.PrepareForFight();
             var fightResult=Fight(army1.GetUnit(), army2.GetUnit());
 
             if (fightResult)
@@ -71,6 +77,25 @@ public static class Battle
                     return false;
                 }
             }
+        }
+    }
+
+    public static bool StraightFight(Army army1, Army army2)
+    {
+        Validate(army1, army2);
+        
+        while (true)
+        {
+            army1.PrepareForStraightFight();
+            army2.PrepareForStraightFight();
+            while (army1.HasUnits && army2.HasUnits)
+            {
+                foreach (var (first, second) in army1.AllAlive().Zip(army2.AllAlive()))
+                {
+                    Fight(first, second);
+                }
+            }
+            return army1.HasUnits;
         }
     }
 }
