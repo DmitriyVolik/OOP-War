@@ -21,5 +21,11 @@ public static class Program
         army2.AddUnits<Lancer>(4);
         
         var result = Battle.StraightFight(army1, army2);
+
+        foreach (var item in army1.AllAlive())
+        {
+            Console.WriteLine(item.GetType().Name + "-" + item.CurrentHealth);
+        }
+
     }
 }

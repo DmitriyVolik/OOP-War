@@ -70,11 +70,6 @@ public class Army : IArmy
         return null!;
     }
 
-    public void ResetCurrentUnit()
-    {
-        _currentUnit = 0;
-    }
-
     public IEnumerable<Warrior> AllAlive()
     {
         return _units.Where(x => x.IsAlive);

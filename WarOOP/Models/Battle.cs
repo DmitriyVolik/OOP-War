@@ -83,6 +83,7 @@ public static class Battle
     public static bool StraightFight(Army army1, Army army2)
     {
         Validate(army1, army2);
+        
         while (true)
         {
             army1.PrepareForStraightFight();
