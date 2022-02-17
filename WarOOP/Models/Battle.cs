@@ -27,6 +27,8 @@ public static class Battle
         
         while (true)
         {
+            
+            //Console.WriteLine(warrior1.GetType().Name + warrior1.CurrentHealth + " > " + warrior2.CurrentHealth + warrior1.GetType().Name);
             warrior1.AttackTo(warrior2);
             if (!warrior2.IsAlive)
             {
@@ -38,6 +40,8 @@ public static class Battle
             {
                 return false;
             }
+
+            //Console.WriteLine(warrior1.GetType().Name + warrior1.CurrentHealth + " > " + warrior2.CurrentHealth + warrior1.GetType().Name);
         }
     }
 

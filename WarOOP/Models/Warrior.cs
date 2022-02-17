@@ -2,18 +2,38 @@ namespace WarOOP.Models;
 
 public class Warrior
 {
+    private int _attack;
+    
+    private int _startHealth;
+    
+    private int _currentHealth;
     public bool IsAlive => CurrentHealth > 0;
 
-    public int StartHealth { get; protected set; }
+    public int StartHealth
+    {
+        get => _startHealth + Equipment.Health; 
+        protected set => _startHealth = value;
+    }
 
-    public int CurrentHealth { get; protected internal set; }
+    public int CurrentHealth
+    {
+        get => _currentHealth + Equipment.Health; 
+        protected internal set => _currentHealth  = value - Equipment.Health;
+    }
 
-    public int Attack { get; protected set; }
+    public int Attack
+    {
+        get => _attack + Equipment.Attack; 
+        protected set => _attack = value;
+    }
+    
+    public Equipment Equipment { get; protected set; }
 
     public Warrior UnitBehind { get; private set; }
 
     public Warrior()
     {
+        Equipment = new Equipment();
         CurrentHealth = 50;
         StartHealth = CurrentHealth;
         Attack = 5;
@@ -28,8 +48,14 @@ public class Warrior
     {
         if (IsAlive)
         {
+            Console.WriteLine("-----------");
+            Console.WriteLine(hit.Damage);
+            Console.WriteLine(CurrentHealth);
             CurrentHealth -= hit.Damage;
-            return CurrentHealth < 0 ? hit.Enemy.Attack + CurrentHealth : hit.Enemy.Attack;
+            Console.WriteLine(CurrentHealth);
+            Console.WriteLine("-----------");
+            
+            return hit.Enemy.Attack;
         }
 
         return 0;
@@ -61,4 +87,5 @@ public class Warrior
             UnitBehind = unit;
         }
     }
+    
 }
