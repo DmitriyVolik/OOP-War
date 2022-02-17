@@ -2,7 +2,21 @@ namespace WarOOP.Models;
 
 public class Vampire : Warrior
 {
-    public int Vampirism { get; private set;}
+    private int _vampirism;
+
+    public int Vampirism
+    {
+        get
+        {
+            if (_vampirism + Equipment.Vampirism < 0)
+            {
+                return 0;
+            }
+
+            return _vampirism + Equipment.Vampirism;
+        }
+        private set => _vampirism = value;
+    }
 
     public Vampire()
     {
@@ -20,7 +34,7 @@ public class Vampire : Warrior
             CurrentHealth += (damage * Vampirism) / 100;
             if (CurrentHealth > StartHealth)
             {
-                CurrentHealth -= CurrentHealth - StartHealth;
+                CurrentHealth = StartHealth;
             }
             Action(this);
         }

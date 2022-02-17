@@ -2,7 +2,22 @@ namespace WarOOP.Models;
 
 public class Defender : Warrior
 {
-    public int Defense { get; private set; }
+    private int _defense;
+
+    public int Defense
+    {
+        get
+        {
+            if (_defense + Equipment.Defense < 0)
+            {
+                return 0;
+            }
+
+            return _defense + Equipment.Defense;
+        }
+        
+        protected set => _defense = value;
+    }
 
     public Defender()
     {
