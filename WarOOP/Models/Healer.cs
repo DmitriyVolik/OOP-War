@@ -48,7 +48,7 @@ public class Healer : Warrior
     {
         if (warrior.CurrentHealth + HealPower > warrior.StartHealth)
         {
-            warrior.CurrentHealth += warrior.StartHealth - warrior.CurrentHealth;
+            warrior.CurrentHealth = warrior.StartHealth;
         }
         else
         {

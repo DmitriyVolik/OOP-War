@@ -48,13 +48,7 @@ public class Warrior
     {
         if (IsAlive)
         {
-            Console.WriteLine("-----------");
-            Console.WriteLine(hit.Damage);
-            Console.WriteLine(CurrentHealth);
             CurrentHealth -= hit.Damage;
-            Console.WriteLine(CurrentHealth);
-            Console.WriteLine("-----------");
-            
             return hit.Enemy.Attack;
         }
 
@@ -82,10 +76,6 @@ public class Warrior
 
     public void SetUnitBehind(Warrior unit)
     {
-        if (UnitBehind == null)
-        {
-            UnitBehind = unit;
-        }
+        UnitBehind = unit;
     }
-    
 }
