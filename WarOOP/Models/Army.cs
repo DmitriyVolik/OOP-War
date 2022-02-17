@@ -40,6 +40,7 @@ public class Army : IArmy
     {
         for (int i = 0; i < count; i++)
         {
+            
             var unit = Warrior.CreateWarrior<T>();
             _units.Add(unit);
         }

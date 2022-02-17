@@ -102,4 +102,68 @@ public class WarriorTests
 
         Assert.True(result);
     }
+    
+    [Fact]
+    public void Fight_WithWeapons1_Correct()
+    {
+        var unit1 = new Warrior();
+        var unit2 = new Vampire();
+        var weapon1 = Weapon.CreateCustomWeapon(-10, 5, 0, 40, 0);
+        var weapon2 = Weapon.CreateSword();
+        unit1.Equipment.AddWeapon(weapon1);
+        unit2.Equipment.AddWeapon(weapon2);
+        
+        var result = Battle.Fight(unit1, unit2);
+        
+        Assert.True(result);
+    }
+    
+    [Fact]
+    public void Fight_WithWeapons2_Correct()
+    {
+        var unit1 = new Defender();
+        var unit2 = new Lancer();
+        var weapon1 = Weapon.CreateShield();
+        var weapon2 = Weapon.CreateGreatAxe();
+        unit1.Equipment.AddWeapon(weapon1);
+        unit2.Equipment.AddWeapon(weapon2);
+        
+        var result = Battle.Fight(unit1, unit2);
+        
+        Assert.False(result);
+    }
+    
+    [Fact]
+    public void Fight_WithWeapons3_Correct()
+    {
+        var unit1 = new Healer();
+        var unit2 = new Knight();
+        var weapon1 = Weapon.CreateMagicWand();
+        var weapon2 = Weapon.CreateKatana();
+        unit1.Equipment.AddWeapon(weapon1);
+        unit2.Equipment.AddWeapon(weapon2);
+        
+        var result = Battle.Fight(unit1, unit2);
+        
+        Assert.False(result);
+    }
+    
+    [Fact]
+    public void Fight_WithWeapons4_Correct()
+    {
+        var unit1 = new Defender();
+        var unit2 = new Vampire();
+        var weapon1 = Weapon.CreateShield();
+        var weapon2 = Weapon.CreateMagicWand();
+        var weapon3 = Weapon.CreateShield();
+        var weapon4 = Weapon.CreateKatana();
+        unit1.Equipment.AddWeapon(weapon1);
+        unit1.Equipment.AddWeapon(weapon2);
+        unit2.Equipment.AddWeapon(weapon3);
+        unit2.Equipment.AddWeapon(weapon4);
+        
+        var result = Battle.Fight(unit1, unit2);
+        
+        Assert.False(result);
+    }
 }
