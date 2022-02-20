@@ -28,8 +28,7 @@ public static class Battle
         
         while (true)
         {
-
-            Console.WriteLine(warrior1.GetType().Name + ":" + warrior1.CurrentHealth + "->" + warrior2.GetType().Name + ":" + warrior2.CurrentHealth);
+            //Console.WriteLine(warrior1.GetType().Name + warrior1.CurrentHealth + " > " + warrior2.CurrentHealth + warrior1.GetType().Name);
             warrior1.AttackTo(warrior2);
             if (!warrior2.IsAlive)
             {
@@ -65,7 +64,7 @@ public static class Battle
         {
             army1.PrepareForFight();
             army2.PrepareForFight();
-            var fightResult=Fight(army1.GetUnit(), army2.GetUnit());
+            var fightResult = Fight(army1.GetUnit(), army2.GetUnit());
 
             if (fightResult)
             {

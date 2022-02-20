@@ -19,6 +19,6 @@ public class Lancer : Warrior
             nextUnit = nextUnit.UnitBehind;
         }
         nextUnit?.GetDamageFrom(new Hit(damage/2,this));
-        Action(this);
+        Action(this, enemy);
     }
 }

@@ -55,9 +55,9 @@ public class Warrior
         return 0;
     }
 
-    protected internal virtual void Action(Warrior warrior)
+    protected internal virtual void Action(Warrior warrior, Warrior enemy)
     {
-        UnitBehind?.Action(this);
+        UnitBehind?.Action(this, enemy);
     }
 
     public virtual void AttackTo(Warrior enemy)
@@ -65,7 +65,7 @@ public class Warrior
         if (IsAlive)
         {
             enemy.GetDamageFrom(new Hit(Attack,this));
-            Action(this);
+            Action(this, enemy);
         }
     }
 

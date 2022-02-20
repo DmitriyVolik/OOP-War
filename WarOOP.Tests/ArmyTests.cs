@@ -890,6 +890,7 @@ public class ArmyTests
         var result = Battle.StraightFight(army1, army2);
         
         Assert.False(result);
+
     }
-    
+
 }

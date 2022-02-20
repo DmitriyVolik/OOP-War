@@ -34,14 +34,14 @@ public class Healer : Warrior
         MedKitCount = 100;
     }
 
-    protected internal override void Action(Warrior warrior)
+    protected internal override void Action(Warrior warrior, Warrior enemy)
     {
         if (MedKitCount > 0)
         {
             Heal(warrior);
             MedKitCount--;
         }
-        UnitBehind?.Action(this);
+        UnitBehind?.Action(this, enemy);
     }
 
     private void Heal(Warrior warrior)
