@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Threading.Channels;
 
 namespace WarOOP.Models;
 
@@ -59,19 +60,7 @@ public static class Battle
         
         army1.MoveUnits();
         army2.MoveUnits();
-        
-        Console.WriteLine("-------------A1---------------");
-        foreach (var item in army1.AllAlive())
-        {
-            Console.WriteLine(item.GetType().Name);
-        }
 
-        Console.WriteLine("-------------A2---------------");
-        foreach (var item in army2.AllAlive())
-        {
-            Console.WriteLine(item.GetType().Name);
-        }
-        
         while (true)
         {
             army1.PrepareForFight();
@@ -115,6 +104,7 @@ public static class Battle
                 foreach (var (first, second) in army1.AllAlive().Zip(army2.AllAlive()))
                 {
                     var result = Fight(first, second);
+                    //Console.WriteLine(first.GetType().Name + ":" + first.CurrentHealth + "|" + second.GetType().Name + ":" + second.CurrentHealth);
                     if (result)
                     {
                         army1.MoveUnits();

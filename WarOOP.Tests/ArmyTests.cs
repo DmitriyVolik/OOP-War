@@ -825,8 +825,6 @@ public class ArmyTests
         army2.AddUnits<Vampire>(1);
         army2.AddUnits<Healer>(2);
         army2.AddUnits<Knight>(2);
-        army1.MoveUnits();
-        army2.MoveUnits();
 
         var result = Battle.Fight(army1, army2);
         
@@ -846,8 +844,6 @@ public class ArmyTests
         army2.AddUnits<Vampire>(1);
         army2.AddUnits<Healer>(5);
         army2.AddUnits<Knight>(2);
-        army1.MoveUnits();
-        army2.MoveUnits();
 
         var result = Battle.Fight(army1, army2);
         
@@ -869,8 +865,6 @@ public class ArmyTests
         army2.AddUnits<Knight>(1);
         army1.GetUnit().Equipment.AddWeapon(Weapon.CreateSword());
         army2.GetUnit().Equipment.AddWeapon(Weapon.CreateShield());
-        army1.MoveUnits();
-        army2.MoveUnits();
 
         var result = Battle.Fight(army1, army2);
         
@@ -892,8 +886,6 @@ public class ArmyTests
         army2.AddUnits<Knight>(1);
         army1.GetUnit().Equipment.AddWeapon(Weapon.CreateSword());
         army2.GetUnit().Equipment.AddWeapon(Weapon.CreateShield());
-        army1.MoveUnits();
-        army2.MoveUnits();
 
         var result = Battle.StraightFight(army1, army2);
         
