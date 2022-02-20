@@ -76,10 +76,6 @@ public class Warrior
 
     public void SetUnitBehind(Warrior unit)
     {
-        if (UnitBehind == null)
-        {
-            UnitBehind = unit;
-        }
+        UnitBehind = unit;
     }
-    
 }

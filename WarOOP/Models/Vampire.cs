@@ -34,7 +34,7 @@ public class Vampire : Warrior
             CurrentHealth += (damage * Vampirism) / 100;
             if (CurrentHealth > StartHealth)
             {
-                CurrentHealth -= CurrentHealth - StartHealth;
+                CurrentHealth = StartHealth;
             }
             Action(this, enemy);
         }

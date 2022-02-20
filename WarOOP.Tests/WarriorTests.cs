@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading;
 using WarOOP.Models;
 using WarOOP.Tests.Models;
 using Xunit;
@@ -175,6 +176,36 @@ public class WarriorTests
         
         gunner.AttackTo(warrior);
         var result = gunner.CurrentHealth == 1 && warrior.CurrentHealth == 10;
+
+    }
+    public void Fight_WithWarlord1_Correct()
+    {
+        var unit1 = new Defender();
+        var unit2 = new Warlord();
+
+        var result = Battle.Fight(unit1, unit2);
+        
+        Assert.False(result);
+    }
+    
+    [Fact]
+    public void Fight_WithWarlord2_Correct()
+    {
+        var unit1 = new Warlord();
+        var unit2 = new Vampire();
+
+        var result = Battle.Fight(unit1, unit2);
+        
+        Assert.True(result);
+    }
+    
+    [Fact]
+    public void Fight_WithWarlord3_Correct()
+    {
+        var unit1 = new Warlord();
+        var unit2 = new Knight();
+
+        var result = Battle.Fight(unit1, unit2);
         
         Assert.True(result);
     }

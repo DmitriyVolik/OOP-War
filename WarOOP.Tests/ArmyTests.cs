@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using WarOOP.Models;
 using WarOOP.Tests.Models;
 using Xunit;
@@ -621,6 +622,8 @@ public class ArmyTests
         
         Assert.True(result);
     }
+    
+    
 
     [Fact]
     public void Fight_WithWeapons5_Correct()
@@ -715,7 +718,7 @@ public class ArmyTests
     }
     
     [Fact]
-    public void Fight_WithWeapons9_Correct()
+    public void StraightFight_WithWeapons9_Correct()
     {
         var weapon1 = Weapon.CreateCustomWeapon(-20, 1, 1, 40, -2);
         var weapon2 = Weapon.CreateCustomWeapon(20, 2, 2, -55, 3);
@@ -739,7 +742,7 @@ public class ArmyTests
     }
     
     [Fact]
-    public void Fight_WithWeapons10_Correct()
+    public void StraightFight_WithWeapons10_Correct()
     {
         var weapon1 = Weapon.CreateKatana();
         var weapon2 = Weapon.CreateShield();
@@ -764,7 +767,7 @@ public class ArmyTests
     }
     
     [Fact]
-    public void Fight_WithWeapons11_Correct()
+    public void StraightFight_WithWeapons11_Correct()
     {
         var weapon1 = Weapon.CreateSword();
         var weapon2 = Weapon.CreateGreatAxe();
@@ -787,7 +790,7 @@ public class ArmyTests
     }
     
     [Fact]
-    public void Fight_WithWeapons12_Correct()
+    public void StraightFight_WithWeapons12_Correct()
     {
         var weapon1 = Weapon.CreateKatana();
         var weapon2 = Weapon.CreateMagicWand();
@@ -808,27 +811,86 @@ public class ArmyTests
         
         Assert.False(result);
     }
-    
-    /*[Fact]
-    public void Fight_WithGunner_Correct()
+
+    [Fact]
+    public void Fight_WithWarlord1_Correct()
     {
-        var weapon1 = Weapon.CreateKatana();
-        var weapon2 = Weapon.CreateMagicWand();
         var army1 = new Army();
         var army2 = new Army();
-        army1.AddUnits<Rookie>(3);
-        army2.AddUnits<Defender>(1);
-        army2.AddUnits<Healer>(1);
-        var units1 = army1.AllAlive().ToList();
-        var units2 = army2.AllAlive().ToList();
-        units1[0].Equipment.AddWeapon(weapon1);
-        units1[1].Equipment.AddWeapon(weapon1);
-        units1[2].Equipment.AddWeapon(weapon1);
-        units2[0].Equipment.AddWeapon(weapon2);
-        units2[1].Equipment.AddWeapon(weapon2);
+        army1.AddUnits<Warlord>(1);
+        army1.AddUnits<Warrior>(2);
+        army1.AddUnits<Lancer>(2);
+        army1.AddUnits<Healer>(2);
+        army2.AddUnits<Warlord>(1);
+        army2.AddUnits<Vampire>(1);
+        army2.AddUnits<Healer>(2);
+        army2.AddUnits<Knight>(2);
+
+        var result = Battle.Fight(army1, army2);
+        
+        Assert.True(result);
+    }
+    
+    [Fact]
+    public void Fight_WithWarlord2_Correct()
+    {
+        var army1 = new Army();
+        var army2 = new Army();
+        army1.AddUnits<Warrior>(2);
+        army1.AddUnits<Lancer>(2);
+        army1.AddUnits<Defender>(1);
+        army1.AddUnits<Warlord>(3);
+        army2.AddUnits<Warlord>(2);
+        army2.AddUnits<Vampire>(1);
+        army2.AddUnits<Healer>(5);
+        army2.AddUnits<Knight>(2);
+
+        var result = Battle.Fight(army1, army2);
+        
+        Assert.False(result);
+    }
+    
+    [Fact]
+    public void Fight_WithWarlord3_Correct()
+    {
+        var army1 = new Army();
+        var army2 = new Army();
+        army1.AddUnits<Warrior>(2);
+        army1.AddUnits<Lancer>(3);
+        army1.AddUnits<Defender>(1);
+        army1.AddUnits<Warlord>(4);
+        army2.AddUnits<Warlord>(1);
+        army2.AddUnits<Vampire>(1);
+        army2.AddUnits<Rookie>(1);
+        army2.AddUnits<Knight>(1);
+        army1.GetUnit().Equipment.AddWeapon(Weapon.CreateSword());
+        army2.GetUnit().Equipment.AddWeapon(Weapon.CreateShield());
+
+        var result = Battle.Fight(army1, army2);
+        
+        Assert.True(result);
+    }
+    
+    [Fact]
+    public void Fight_WithWarlord4_Correct()
+    {
+        var army1 = new Army();
+        var army2 = new Army();
+        army1.AddUnits<Warrior>(2);
+        army1.AddUnits<Lancer>(3);
+        army1.AddUnits<Defender>(1);
+        army1.AddUnits<Warlord>(1);
+        army2.AddUnits<Warlord>(5);
+        army2.AddUnits<Vampire>(1);
+        army2.AddUnits<Rookie>(1);
+        army2.AddUnits<Knight>(1);
+        army1.GetUnit().Equipment.AddWeapon(Weapon.CreateSword());
+        army2.GetUnit().Equipment.AddWeapon(Weapon.CreateShield());
 
         var result = Battle.StraightFight(army1, army2);
         
         Assert.False(result);
-    }*/
+
+    }
+
 }

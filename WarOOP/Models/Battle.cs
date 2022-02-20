@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Threading.Channels;
 
 namespace WarOOP.Models;
 
@@ -39,8 +40,6 @@ public static class Battle
             {
                 return false;
             }
-
-            //Console.WriteLine(warrior1.GetType().Name + warrior1.CurrentHealth + " > " + warrior2.CurrentHealth + warrior1.GetType().Name);
         }
     }
 
@@ -58,6 +57,9 @@ public static class Battle
             return true;
         }
         
+        army1.MoveUnits();
+        army2.MoveUnits();
+
         while (true)
         {
             army1.PrepareForFight();
@@ -66,6 +68,7 @@ public static class Battle
 
             if (fightResult)
             {
+                army2.MoveUnits();
                 army2.SetNextUnit();
                 if (!army2.HasUnits)
                 {
@@ -74,6 +77,7 @@ public static class Battle
             }
             else
             {
+                army1.MoveUnits();
                 army1.SetNextUnit();
                 if (!army1.HasUnits)
                 {
@@ -87,6 +91,9 @@ public static class Battle
     {
         Validate(army1, army2);
         
+        army1.MoveUnits();
+        army2.MoveUnits();
+        
         while (true)
         {
             army1.PrepareForStraightFight();
@@ -95,7 +102,16 @@ public static class Battle
             {
                 foreach (var (first, second) in army1.AllAlive().Zip(army2.AllAlive()))
                 {
-                    Fight(first, second);
+                    var result = Fight(first, second);
+                    //Console.WriteLine(first.GetType().Name + ":" + first.CurrentHealth + "|" + second.GetType().Name + ":" + second.CurrentHealth);
+                    if (result)
+                    {
+                        army1.MoveUnits();
+                    }
+                    else
+                    {
+                        army2.MoveUnits();
+                    }
                 }
             }
             return army1.HasUnits;

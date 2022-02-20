@@ -16,7 +16,7 @@ public class Defender : Warrior
             return _defense + Equipment.Defense;
         }
         
-        private set => _defense = value;
+        protected set => _defense = value;
     }
 
     public Defender()
