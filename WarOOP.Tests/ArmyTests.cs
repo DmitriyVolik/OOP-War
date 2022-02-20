@@ -808,4 +808,27 @@ public class ArmyTests
         
         Assert.False(result);
     }
+    
+    /*[Fact]
+    public void Fight_WithGunner_Correct()
+    {
+        var weapon1 = Weapon.CreateKatana();
+        var weapon2 = Weapon.CreateMagicWand();
+        var army1 = new Army();
+        var army2 = new Army();
+        army1.AddUnits<Rookie>(3);
+        army2.AddUnits<Defender>(1);
+        army2.AddUnits<Healer>(1);
+        var units1 = army1.AllAlive().ToList();
+        var units2 = army2.AllAlive().ToList();
+        units1[0].Equipment.AddWeapon(weapon1);
+        units1[1].Equipment.AddWeapon(weapon1);
+        units1[2].Equipment.AddWeapon(weapon1);
+        units2[0].Equipment.AddWeapon(weapon2);
+        units2[1].Equipment.AddWeapon(weapon2);
+
+        var result = Battle.StraightFight(army1, army2);
+        
+        Assert.False(result);
+    }*/
 }
