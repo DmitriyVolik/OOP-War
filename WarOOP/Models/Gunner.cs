@@ -4,7 +4,7 @@ public class Gunner : Warrior
 {
     public int AmmunitionCount { get; private set; }
     
-    public int AttackCount { get; private set; }
+    private int AttackCount { get; set; }
     
     public Gunner()
     {

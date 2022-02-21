@@ -25,10 +25,12 @@ public static class Battle
         {
             throw new Exception("Non damage units");
         }
+
+        Console.WriteLine("-------------------");
         
         while (true)
         {
-            //Console.WriteLine(warrior1.GetType().Name + warrior1.CurrentHealth + " > " + warrior2.CurrentHealth + warrior1.GetType().Name);
+            Console.WriteLine(warrior1.GetType().Name + warrior1.CurrentHealth + " > " + warrior2.CurrentHealth + warrior1.GetType().Name);
             warrior1.AttackTo(warrior2);
             if (!warrior2.IsAlive)
             {
@@ -103,7 +105,6 @@ public static class Battle
                 foreach (var (first, second) in army1.AllAlive().Zip(army2.AllAlive()))
                 {
                     var result = Fight(first, second);
-                    //Console.WriteLine(first.GetType().Name + ":" + first.CurrentHealth + "|" + second.GetType().Name + ":" + second.CurrentHealth);
                     if (result)
                     {
                         army1.MoveUnits(army2);
