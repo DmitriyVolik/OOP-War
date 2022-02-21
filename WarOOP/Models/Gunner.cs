@@ -13,7 +13,7 @@ public class Gunner : Warrior
         Attack = 0;
         AmmunitionCount = 20;
         Attack = 2;
-        AttackCount = 0;
+        AttackCount = 1;
     }
 
     protected internal override void Action(Warrior warrior, Warrior enemy)
@@ -32,8 +32,8 @@ public class Gunner : Warrior
                 enemy.GetDamageFrom(new Hit(Attack, this));
             }
             AmmunitionCount--;
-            AttackCount++;
         }
+        AttackCount++;
     }
 
     public override void AttackTo(Warrior enemy)
@@ -41,7 +41,8 @@ public class Gunner : Warrior
         if (AmmunitionCount > 0)
         {
             enemy.GetDamageFrom(new Hit(Attack * AmmunitionCount, this));
-            CurrentHealth = 1;
+            CurrentHealth = 0;
         }
+        Action(this, enemy);
     }
 }

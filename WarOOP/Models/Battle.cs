@@ -57,8 +57,8 @@ public static class Battle
             return true;
         }
         
-        army1.MoveUnits();
-        army2.MoveUnits();
+        army1.MoveUnits(army2);
+        army2.MoveUnits(army1);
 
         while (true)
         {
@@ -68,7 +68,7 @@ public static class Battle
 
             if (fightResult)
             {
-                army2.MoveUnits();
+                army2.MoveUnits(army1);
                 army2.SetNextUnit();
                 if (!army2.HasUnits)
                 {
@@ -77,7 +77,7 @@ public static class Battle
             }
             else
             {
-                army1.MoveUnits();
+                army1.MoveUnits(army2);
                 army1.SetNextUnit();
                 if (!army1.HasUnits)
                 {
@@ -91,8 +91,8 @@ public static class Battle
     {
         Validate(army1, army2);
         
-        army1.MoveUnits();
-        army2.MoveUnits();
+        army1.MoveUnits(army2);
+        army2.MoveUnits(army1);
         
         while (true)
         {
@@ -106,11 +106,11 @@ public static class Battle
                     //Console.WriteLine(first.GetType().Name + ":" + first.CurrentHealth + "|" + second.GetType().Name + ":" + second.CurrentHealth);
                     if (result)
                     {
-                        army1.MoveUnits();
+                        army1.MoveUnits(army2);
                     }
                     else
                     {
-                        army2.MoveUnits();
+                        army2.MoveUnits(army1);
                     }
                 }
             }

@@ -892,5 +892,69 @@ public class ArmyTests
         Assert.False(result);
 
     }
+    
+    [Fact]
+    public void AttackTo_WithGunner_Correct()
+    {
+        var army1 = new Army();
+        var army2 = new Army();
+        army1.AddUnits<Warrior>(1);
+        army1.AddUnits<Gunner>(1);
+        army2.AddUnits<Warrior>(4);
+        army1.PrepareForFight();
+        army2.PrepareForFight();
+        
+        army1.GetUnit().AttackTo(army2.GetUnit());
+        army1.GetUnit().AttackTo(army2.GetUnit());
+        army1.GetUnit().AttackTo(army2.GetUnit());
+        army1.GetUnit().AttackTo(army2.GetUnit());
+        army1.GetUnit().AttackTo(army2.GetUnit());
+        var result = army2.AllAlive().Where(x=>x.CurrentHealth!= 23).All(unit => unit.CurrentHealth == 48);
+
+        Assert.True(result);
+
+    }
+    
+    [Fact]
+    public void Fight_WithGunners1_Correct()
+    {
+        var army1 = new Army();
+        var army2 = new Army();
+        army1.AddUnits<Warlord>(1);
+        army1.AddUnits<Warrior>(2);
+        army1.AddUnits<Lancer>(2);
+        army1.AddUnits<Healer>(2);
+        army2.AddUnits<Gunner>(1);
+        army2.AddUnits<Warlord>(1);
+        army2.AddUnits<Vampire>(1);
+        army2.AddUnits<Healer>(2);
+        army2.AddUnits<Knight>(2);
+
+        var result = Battle.Fight(army1, army2);
+        
+        Assert.False(result);
+    }
+    
+    [Fact]
+    public void Fight_WithGunners2_Correct()
+    {
+        var army1 = new Army();
+        var army2 = new Army();
+        army1.AddUnits<Warrior>(2);
+        army1.AddUnits<Lancer>(3);
+        army1.AddUnits<Defender>(1);
+        army1.AddUnits<Warlord>(1);
+        army1.AddUnits<Gunner>(2);
+        army2.AddUnits<Warlord>(5);
+        army2.AddUnits<Vampire>(1);
+        army2.AddUnits<Rookie>(1);
+        army2.AddUnits<Knight>(1);
+        army1.GetUnit().Equipment.AddWeapon(Weapon.CreateSword());
+        army2.GetUnit().Equipment.AddWeapon(Weapon.CreateShield());
+
+        var result = Battle.StraightFight(army1, army2);
+        
+        Assert.True(result);
+    }
 
 }
