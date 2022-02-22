@@ -85,48 +85,8 @@ public class Army : IArmy
     {
         if (HasWarlord)
         {
-            var newArmy = new List<Warrior>();
-
-            var dead = _units.Where(x => !x.IsAlive);
-            var lancers = _units.Where(x => x.IsAlive && x is Lancer).ToList();
-            var warriors = _units.Where(x =>
-                x.IsAlive && x.Attack > 0 && x is not Warlord && x is not Lancer && x is not Gunner).ToList();
-            var healers = _units.Where(x => x.IsAlive && x is Healer).ToList();
-            var gunners = _units.Where(x => x is Gunner).ToList();
-            var warlord = _units.First(x => x is Warlord);
-            if (!enemies.HasWarlord && enemies.GetUnit() is Gunner)
-            {
-                
-                var lowHealth = warriors.MinBy(x => x.CurrentHealth);
-                newArmy.Add(lowHealth);
-                warriors.Remove(lowHealth);
-            }
-            
-            newArmy.AddRange(dead);
-
-            if (lancers.Count > 0)
-            {
-                newArmy.Add(lancers.First());
-                lancers.Remove(lancers.First());
-                newArmy.AddRange(healers);
-                newArmy.AddRange(lancers);
-                newArmy.AddRange(warriors);
-            }
-            else if (warriors.Count > 0)
-            {
-                newArmy.Add(warriors.First());
-                warriors.Remove(warriors.First());
-                newArmy.AddRange(healers);
-                newArmy.AddRange(warriors);
-            }
-            else
-            {
-                newArmy.AddRange(healers);
-            }
-            
-            newArmy.AddRange(gunners);
-            newArmy.Add(warlord);
-            _units = newArmy;
+            var warlord = (Warlord)_units.First(x => x is Warlord);
+            _units = warlord.MoveUnits(_units, enemies);
         }
     }
 }

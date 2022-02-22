@@ -909,10 +909,11 @@ public class ArmyTests
         army1.GetUnit().AttackTo(army2.GetUnit());
         army1.GetUnit().AttackTo(army2.GetUnit());
         army1.GetUnit().AttackTo(army2.GetUnit());
-        var result = army2.AllAlive().Where(x=>x.CurrentHealth!= 23).All(unit => unit.CurrentHealth == 48);
+        var result = army2.AllAlive()
+            .Where(x => x.CurrentHealth != 23)
+            .All(unit => unit.CurrentHealth == 48);
 
         Assert.True(result);
-
     }
     
     [Fact]
